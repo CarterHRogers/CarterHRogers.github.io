@@ -1,0 +1,185 @@
+/* ─── RESET ──────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+
+/* ─── PALETTE ────────────────────────────────────────── */
+:root {
+    --parchment: #FDF3E2;          /* page + every tile             */
+    --dark:      #3D1209;          /* top bar · borders · text      */
+    --mid:       rgba(61,18,9,.55);/* secondary / muted text        */
+}
+
+/* ─── BASE ───────────────────────────────────────────── */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--parchment);
+    color: var(--dark);
+    min-height: 100vh;
+}
+
+/* ─── TOP BAR ────────────────────────────────────────── */
+.top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 44px;
+    background: var(--dark);
+    border-bottom: 5px solid var(--dark);
+}
+#clock    { font-size: 1rem;  font-weight: 500; color: var(--parchment); }
+.top-name { font-size: 0.85rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--parchment); }
+
+/* ─── GRID ───────────────────────────────────────────── */
+.home-screen {
+    padding: 20px 44px 80px;
+    max-width: 1180px;
+    margin: 0 auto;
+}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: minmax(120px, auto);
+    gap: 14px;
+}
+.span-2-col { grid-column: span 2; }
+.span-2-row { grid-row:    span 2; }
+
+/* ─── TILE BASE ──────────────────────────────────────── */
+.tile {
+    background: var(--parchment);
+    border: 7px solid var(--dark);
+    border-radius: 18px;
+    padding: 20px;
+    cursor: pointer;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    text-decoration: none;
+    color: var(--dark);
+}
+.tile:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 0 var(--dark);
+}
+.tile:active {
+    transform: translateY(0);
+    box-shadow: none;
+    transition-duration: 0.06s;
+}
+
+/* ─── HERO TILE ──────────────────────────────────────── */
+.tile-hero { justify-content: center; }
+
+.hero-greeting { font-size: 0.85rem; font-weight: 500; color: var(--mid); margin-bottom: 4px; }
+.hero-name     { font-size: 3.8rem;  font-weight: 800; line-height: 1; color: var(--dark); margin-bottom: 16px; }
+.hero-bio      { font-size: 0.83rem; line-height: 1.65; color: var(--mid); font-weight: 400; margin-bottom: 20px; max-width: 280px; }
+
+
+/* ─── LINK TILES ─────────────────────────────────────── */
+.tile-linkedin, .tile-substack, .tile-github, .tile-movie-magic,
+.tile-bandcamp, .tile-camfm, .tile-mundane-risk, .tile-cv { justify-content: flex-start; }
+.tile-substack, .tile-movie-magic,
+.tile-bandcamp, .tile-camfm, .tile-mundane-risk { justify-content: space-between; }
+.tile-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.link-meta { display: flex; flex-direction: column; }
+.link-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.15rem; font-weight: 800;
+    flex-shrink: 0;
+    color: #fff;
+    overflow: hidden;
+}
+.tile-desc {
+    font-size: 0.76rem;
+    line-height: 1.5;
+    color: var(--mid);
+    margin: 0;
+}
+.tile-substack   .link-icon { background-color: #CC3700;      background-image: url('logos/substack.png');         background-position: center; background-size: 65%; background-repeat: no-repeat; }
+.tile-linkedin   .link-icon { background-color: #0058A3;      background-image: url('logos/LinkedIn.png');         background-position: center; background-size: 65%; background-repeat: no-repeat; }
+.tile-github      .link-icon { background-color: var(--dark); background-image: url('logos/GitHub.png');           background-position: center; background-size: 65%; background-repeat: no-repeat; }
+.tile-movie-magic .link-icon { background-color: #5B21B6;    background-image: url('logos/Movie%20Magic.jpg');    background-position: center; background-size: cover; background-repeat: no-repeat; }
+.tile-bandcamp    .link-icon { background-color: #1DA0C3;     background-image: url('logos/Bandcamp.png');         background-position: center; background-size: 65%; background-repeat: no-repeat; }
+.tile-camfm       .link-icon { background-color: #0E4D92;    background-image: url('logos/CamFm%20Pomodoro.jpg'); background-position: center; background-size: cover; background-repeat: no-repeat; }
+.tile-mundane-risk .link-icon { background-color: #FFB014;   background-image: url('logos/mundane-risk-square.png'); background-position: center; background-size: cover; background-repeat: no-repeat; }
+.tile-cv           .link-icon { background-color: #3D1209; background-image: url('logos/cv.svg'); background-position: center; background-size: 65%; background-repeat: no-repeat; }
+
+.link-label { font-size: 0.88rem; font-weight: 700; margin-top: 10px; color: var(--dark); }
+.link-sub   { font-size: 0.72rem; font-weight: 500; color: var(--mid);  margin-top: 2px; }
+
+/* ─── PROJECT / WIDE TILES ───────────────────────────── */
+.tile-project-a,
+.tile-project-b,
+.tile-writing { justify-content: space-between; }
+
+.project-row  { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.project-tag  { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mid); margin-bottom: 5px; }
+.project-name { font-size: 1.05rem; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+.project-desc { font-size: 0.76rem; color: var(--mid); line-height: 1.5; max-width: 340px; }
+.proj-arrow   { font-size: 1.3rem; color: var(--mid); flex-shrink: 0; padding-top: 18px; }
+
+/* ─── SPARKLINES ─────────────────────────────────────── */
+.sparkline-wrap { height: 50px; }
+.sparkline { width: 100%; height: 100%; }
+.spark-line {
+    fill: none;
+    stroke: var(--dark);
+    stroke-width: 2;
+    vector-effect: non-scaling-stroke;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.spark-fill { fill: rgba(61,18,9,0.08); stroke: none; }
+
+/* ─── CONTACT TILE (inverted) ────────────────────────── */
+.tile-contact {
+    background: var(--dark);
+    border-color: var(--dark);
+    justify-content: flex-end;
+}
+.tile-contact .contact-label,
+.tile-contact .contact-heading { color: var(--parchment); }
+.tile-contact .contact-email   { color: var(--parchment); opacity: 0.7; }
+.tile-contact .contact-email:hover { opacity: 1; }
+.tile-contact:hover { box-shadow: 0 5px 0 rgba(61,18,9,0.35); }
+
+.contact-label   { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mid); margin-bottom: 8px; }
+.contact-heading { font-size: 1.4rem;  font-weight: 700; color: var(--dark); margin-bottom: 10px; }
+.contact-email   { font-size: 0.82rem; font-weight: 600; text-decoration: none; transition: opacity 0.15s; color: var(--dark); }
+.contact-email:hover { opacity: 1; }
+
+/* ─── PLACEHOLDER ────────────────────────────────────── */
+.tile-placeholder {
+    cursor: default;
+    justify-content: center;
+    align-items: center;
+    border-style: dashed;
+    opacity: 0.4;
+}
+.tile-placeholder:hover { transform: none; box-shadow: none; }
+
+/* ─── RESPONSIVE ─────────────────────────────────────── */
+@media (max-width: 860px) {
+    .home-screen { padding: 16px 20px 60px; }
+    .top-bar      { padding: 16px 20px; }
+    .grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: minmax(170px, auto); gap: 12px; }
+    .hero-name { font-size: 2.8rem; }
+    .hero-bio  { max-width: 100%; }
+}
+@media (max-width: 480px) {
+    .grid { grid-auto-rows: minmax(150px, auto); gap: 10px; }
+    .hero-name { font-size: 2.2rem; }
+    .tile { border-radius: 14px; padding: 16px; border-width: 5px; }
+}
